@@ -23,6 +23,18 @@ app.get('/api/students', (req, res, next) => {
     .catch(next);
 });
 
+app.post('/api/schools', (req, res, next) => {
+  db.createSchool(req.body)
+    .then(school => res.send(school))
+    .catch(next);
+});
+
+app.post('/api/students', (req, res, next) => {
+  db.createStudent(req.body)
+    .then(student => res.send(student))
+    .catch(next);
+});
+
 const port = process.env.PORT || 3000;
 
 db.sync()
