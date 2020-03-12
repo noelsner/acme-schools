@@ -19,11 +19,11 @@ const App = () => {
   }, []);
 
   return (
-    <div className="main">
-      <div className="header">
-        <h1> <a>Acme Schools</a> </h1>
+    <div className="p-4">
+      <div>
+        <h1 className="text-4xl font-bold"> <a>Acme Schools</a> </h1>
         <h3> {schools.length} schools </h3>
-        <h3> {students.length} stuents </h3>
+        <h3> {students.length} students </h3>
       </div>
       <div>
         <SchoolsForm schools={schools} />
