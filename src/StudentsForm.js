@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 const StudentsForm = ({ createStudent, schools }) => {
   const [name, setName] = useState('');
-  const [schoolId, setSchoolId] = useState('');
+  const [schoolId, setSchoolId] = useState(undefined);
 
   const onSubmit = (ev) => {
     ev.preventDefault();
@@ -19,7 +19,7 @@ const StudentsForm = ({ createStudent, schools }) => {
         </div>
         <div>
           <select className="block appearance-none w-full bg-gray-100 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 mb-4 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value={schoolId} onChange={ev => setSchoolId(ev.target.value)}>
-            <option value=""> -- select a school -- </option>
+            <option value={null}> -- select a school -- </option>
             {
               schools.map( school => {
                 return (
