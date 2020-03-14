@@ -3,16 +3,19 @@ const client = new pg.Client(process.env.DATABASE_URL || 'postgres://localhost/a
 
 client.connect();
 
-const drop = async() => {
-  await client.query(`
-  DROP TABLE IF EXISTS students;
-  DROP TABLE IF EXISTS schools;
-  `);
-}
+// const drop = async() => {
+//   await client.query(`
+//   DROP TABLE IF EXISTS students;
+//   DROP TABLE IF EXISTS schools;
+//   `);
+// }
 
 const sync = async() => {
   const SQL = `
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+    DROP TABLE IF EXISTS students;
+    DROP TABLE IF EXISTS schools;
 
     CREATE TABLE schools(
       id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -44,5 +47,5 @@ const sync = async() => {
 module.exports = {
   sync,
   client, 
-  drop
+  // drop
 };

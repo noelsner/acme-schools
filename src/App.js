@@ -21,7 +21,7 @@ const App = () => {
     ]).then(responses => {
       setSchools(responses[0].data);
       setStudents(responses[1].data);
-    });
+    }).catch(error => setError(error))
   }, []);
 
   const createSchool = async(school) => {
