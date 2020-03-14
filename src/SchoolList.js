@@ -43,7 +43,6 @@ const SchoolList = ({ schools, students, updateStudent }) => {
                         <option> -- enroll a student -- </option>
                         {
                           students.map(student => {
-                            //should exclude students already enrolled at this school from the options
                             if (student.schoolId !== school.id) {
                               return (
                                 <option key={student.id} value={student.id}> {student.name} </option>
