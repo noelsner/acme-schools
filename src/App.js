@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 import SchoolsForm from './SchoolsForm';
 import StudentsForm from './StudentsForm';
@@ -57,8 +57,9 @@ const App = () => {
       await axios.delete(`/api/students/${id}`);
       setStudents(students.filter(student => student.id !== id));
     } catch (e) {
-      console.log(e);
+      // console.log(e.response.data);
       setError(e);
+      console.log('error :', error);
     }
   };
 
@@ -110,7 +111,7 @@ const App = () => {
               <SchoolList schools={schools} students={students} updateStudent={updateStudent} />
             </div>
           </Route>
-          <Route path="/school/:schoolId" exact render={(props) => <SchoolPage school={schools.find(school => school.id === props.match.params.schoolId)} deleteSchool={deleteSchool} updateSchool={updateSchool} />} />
+          <Route path="/school/:schoolId" exact render={(props) => <SchoolPage school={schools.find(school => school.id === props.match.params.schoolId)} deleteSchool={deleteSchool} updateSchool={updateSchool} error={error} />} />
           <Route path="/student/:studentId" exact render={(props) => <StudentPage student={students.find(student => student.id === props.match.params.studentId)} deleteStudent={deleteStudent} schools={schools} updateStudent={updateStudent} />} />
         {/* </Switch> */}
       </div>

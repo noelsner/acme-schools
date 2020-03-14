@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const SchoolPage = ({ school = {}, deleteSchool, updateSchool}) => {
+const SchoolPage = ({ school = {}, deleteSchool, updateSchool, error}) => {
   if (!school.id) {
     return <p> Loading... </p>;
   }
@@ -25,6 +25,7 @@ const SchoolPage = ({ school = {}, deleteSchool, updateSchool}) => {
       <form className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
         <div className="mb-4">
           <label className="block text-gray-800 text-xl font-bold mb-2">Update School</label>
+          <div> {console.log(error)} </div>
           <input className="text-gray-800 shadow border rounded w-full py-2 px-3 focus:outline-none focus:shadow-outline" placeholder="School" value={name} onChange={ev => setName(ev.target.value)} />
         </div>
         <div>
