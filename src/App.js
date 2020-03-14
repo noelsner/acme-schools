@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Route, Link } from 'react-router-dom';
+// import { createSchool, createStudent, deleteSchool, deleteStudent, updateSchool, updateStudent } from './api';
 
 import SchoolsForm from './school/SchoolsForm';
 import StudentsForm from './student/StudentsForm';
@@ -28,7 +29,7 @@ const App = () => {
       const newSchool = (await axios.post('/api/schools', school)).data;
       setSchools([...schools, newSchool]);
     } catch (e) {
-      console.log(e);
+      setError(e.response.data.message)
     }
   };
 
@@ -37,8 +38,7 @@ const App = () => {
       const newStudent = (await axios.post('/api/students', studentAndSchoolId)).data;
       setStudents([...students, newStudent]);
     } catch (e) {
-      console.log(e);
-      setError(e);
+      setError(e.response.data.message);
     }
   };
 
@@ -47,8 +47,7 @@ const App = () => {
       await axios.delete(`/api/schools/${id}`);
       setSchools(schools.filter(school => school.id !== id));
     } catch (e) {
-      console.log(e);
-      setError(e);
+      setError(e.response.data.message);
     }
   };
 
@@ -56,10 +55,8 @@ const App = () => {
     try {
       await axios.delete(`/api/students/${id}`);
       setStudents(students.filter(student => student.id !== id));
-    } catch (e) {
-      // console.log(e.response.data);
-      setError(e);
-      console.log('error :', error);
+    } catch (error) {
+      setError(e.response.data.message);
     }
   };
 
@@ -74,7 +71,7 @@ const App = () => {
         }
       }));
     } catch (e) {
-      setError(e);
+      setError(e.response.data.message);
     }
   };
 
@@ -89,7 +86,7 @@ const App = () => {
         }
       }));
     } catch (e) {
-      setError(e);
+      setError(e.response.data.message);
     }
   }
 
@@ -111,7 +108,7 @@ const App = () => {
               <SchoolList schools={schools} students={students} updateStudent={updateStudent} />
             </div>
           </Route>
-          <Route path="/school/:schoolId" exact render={(props) => <SchoolPage school={schools.find(school => school.id === props.match.params.schoolId)} deleteSchool={deleteSchool} updateSchool={updateSchool} error={error} />} />
+          <Route path="/school/:schoolId" exact render={(props) => <SchoolPage school={schools.find(school => school.id === props.match.params.schoolId)} deleteSchool={deleteSchool} updateSchool={updateSchool} error={error} setError={setError} />} />
           <Route path="/student/:studentId" exact render={(props) => <StudentPage student={students.find(student => student.id === props.match.params.studentId)} deleteStudent={deleteStudent} schools={schools} updateStudent={updateStudent} />} />
         {/* </Switch> */}
       </div>
