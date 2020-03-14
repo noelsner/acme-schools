@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 const SchoolsForm = ({ createSchool }) => {
   const [name, setName] = useState('');
+  
 
   const onSubmit = (ev) => {
     ev.preventDefault();

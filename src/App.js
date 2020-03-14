@@ -62,6 +62,36 @@ const App = () => {
     }
   };
 
+  const updateSchool = async(school) => {
+    try {
+      await axios.put(`/api/schools/${school.id}`, school).data;
+      setSchools(schools.map((sch) => {
+        if (sch.id === school.id ) {
+          return school;
+        } else {
+          return sch;
+        }
+      }));
+    } catch (e) {
+      setError(e);
+    }
+  };
+
+  const updateStudent = async(student) => {
+    try {
+      await axios.put(`/api/students/${student.id}`, student).data;
+      setStudents(students.map((stu) => {
+        if (stu.id === student.id ) {
+          return student;
+        } else {
+          return stu;
+        }
+      }));
+    } catch (e) {
+      setError(e);
+    }
+  }
+
   return (
       <div>
         <div className="border mb-4 px-4">
@@ -80,8 +110,8 @@ const App = () => {
               <SchoolList schools={schools} students={students} />
             </div>
           </Route>
-          <Route path="/school/:schoolId" exact render={(props) => <SchoolPage school={schools.find(school => school.id === props.match.params.schoolId)} deleteSchool={deleteSchool} />} />
-          <Route path="/student/:studentId" exact render={(props) => <StudentPage student={students.find(student => student.id === props.match.params.studentId)} deleteStudent={deleteStudent} />} />
+          <Route path="/school/:schoolId" exact render={(props) => <SchoolPage school={schools.find(school => school.id === props.match.params.schoolId)} deleteSchool={deleteSchool} updateSchool={updateSchool} />} />
+          <Route path="/student/:studentId" exact render={(props) => <StudentPage student={students.find(student => student.id === props.match.params.studentId)} deleteStudent={deleteStudent} schools={schools} updateStudent={updateStudent} />} />
         {/* </Switch> */}
       </div>
   );

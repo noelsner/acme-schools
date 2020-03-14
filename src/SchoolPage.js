@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const SchoolPage = ({ school = {}, deleteSchool}) => {
+const SchoolPage = ({ school = {}, deleteSchool, updateSchool}) => {
   if (!school.id) {
     return <p> Loading... </p>;
   }
@@ -10,7 +10,8 @@ const SchoolPage = ({ school = {}, deleteSchool}) => {
 
   const onSubmit = (ev) => {
     ev.preventDefault();
-    console.log('update clicked');
+    updateSchool({name, id: school.id})
+      .then(history.push('/'));
     setName('');
   };
 

@@ -47,6 +47,19 @@ app.delete('/api/students/:id', (req, res, next) => {
     .catch(next);
 });
 
+app.put('/api/schools/:id', (req, res, next) => {
+  console.log(req.body);
+  db.updateSchool(req.body)
+    .then(school => res.send(school))
+    .catch(next);
+});
+
+app.put('/api/students/:id', (req, res, next) => {
+  db.updateStudent(req.body)
+    .then(student => res.send(student))
+    .catch(next);
+});
+
 const port = process.env.PORT || 3000;
 
 db.sync()

@@ -61,6 +61,14 @@ const deleteStudent = async( id ) => {
   await client.query('DELETE FROM students WHERE id=$1', [ id ]);
 };
 
+const updateSchool = async( school ) => {
+  return (await client.query('UPDATE schools SET name=$1 WHERE id=$2 RETURNING *', [school.name, school.id])).rows[0];
+};
+
+const updateStudent = async( student ) => {
+  return (await client.query('UPDATE students SET name=$1, "schoolId"=$2 WHERE id=$3 RETURNING *', [student.name, student.schoolId, student.id])).rows[0];
+};
+
 module.exports = {
   sync,
   createSchool,
@@ -68,5 +76,7 @@ module.exports = {
   readSchool,
   readStudent,
   deleteSchool,
-  deleteStudent
+  deleteStudent,
+  updateSchool,
+  updateStudent
 };
