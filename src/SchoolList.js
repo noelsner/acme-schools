@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
 
-const SchoolList = ({ schools, students }) => {
+const SchoolList = ({ schools, students, updateStudent }) => {
   const history = useHistory();
   const unenrolledStudents = students.filter(student => !student.schoolId);
-  const [studentId, setStudentId] = useState('');
+  const [studentId, setStudentId] = useState(undefined);
+  
+  
 
-  const unenrollStudent = () => {
-    console.log('updateStudent({schoolId: null})');
-    setStudentId('');
+  const unenrollStudent = (ev) => {
+    const name = students.find(student => student.id === ev.target.value).name;
+    updateStudent({name, schoolId: undefined, id: ev.target.value});
   };
 
   return (
@@ -60,7 +62,8 @@ const SchoolList = ({ schools, students }) => {
                               </button>
                               <button
                                 type="button"
-                                onClick={ unenrollStudent }
+                                onClick={ (ev) => unenrollStudent(ev) }
+                                value={filteredStudent.id}
                                 className="m-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
                                 Unenroll
                               </button>
