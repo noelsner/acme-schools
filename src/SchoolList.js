@@ -4,14 +4,16 @@ import { useHistory } from 'react-router-dom';
 const SchoolList = ({ schools, students, updateStudent }) => {
   const history = useHistory();
   const unenrolledStudents = students.filter(student => !student.schoolId);
-  const [studentId, setStudentId] = useState(undefined);
-  
-  
 
   const unenrollStudent = (ev) => {
     const name = students.find(student => student.id === ev.target.value).name;
     updateStudent({name, schoolId: undefined, id: ev.target.value});
   };
+
+  const enrollStudent = (ev, schoolId) => {
+    const name = students.find(student => student.id === ev.target.value).name;
+    updateStudent({name, schoolId, id: ev.target.value});
+  }
 
   return (
     <div className="border">
@@ -37,8 +39,8 @@ const SchoolList = ({ schools, students, updateStudent }) => {
                   <div>
                     <button type="button" className="mb-2 text-2xl underline hover:text-blue-500" onClick={() => history.push(`/school/${school.id}`)}> {school.name} </button>
                     <div>
-                      <select className="block appearance-none w-full bg-gray-100 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 my-4 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value={studentId} onChange={ev => setStudentId(ev.target.value)}>
-                        <option value={null}> -- enroll a student -- </option>
+                      <select className="block appearance-none w-full bg-gray-100 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 my-4 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="-- enroll a student --" onChange={ev => enrollStudent(ev, school.id)}>
+                        <option> -- enroll a student -- </option>
                         {
                           students.map(student => {
                             //should exclude students already enrolled at this school from the options
