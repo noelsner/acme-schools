@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Route, Link } from 'react-router-dom';
 
-import SchoolsForm from './SchoolsForm';
-import StudentsForm from './StudentsForm';
-import SchoolList from './SchoolList';
-import SchoolPage from './SchoolPage';
-import StudentPage from './StudentPage';
+import SchoolsForm from './school/SchoolsForm';
+import StudentsForm from './student/StudentsForm';
+import SchoolList from './school/SchoolList';
+import SchoolPage from './school/SchoolPage';
+import StudentPage from './student/StudentPage';
 
 const App = () => {
   const [schools, setSchools] = useState([]);

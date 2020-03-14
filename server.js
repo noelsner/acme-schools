@@ -1,6 +1,10 @@
 const express = require('express');
 const path = require('path');
-const db = require('./db');
+const db = require('./src/database/db');
+const reads = require('./src/database/reads');
+const creates = require('./src/database/creates');
+const deletes = require('./src/database/deletes');
+const updates = require('./src/database/updates');
 
 const app = express();
 
@@ -11,53 +15,31 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/', (req, res, next) => res.sendFile(path.join(__dirname, 'index.html')));
 
-app.get('/api/schools', (req, res, next) => {
-  db.readSchool()
-    .then(school => res.send(school))
-    .catch(next);
-});
+['schools', 'students'].forEach(table => {
 
-app.get('/api/students', (req, res, next) => {
-  db.readStudent()
-    .then(student => res.send(student))
-    .catch(next);
-});
+  app.get(`/api/${table}`, (req, res, next) => {
+    reads[table]()
+      .then(read => res.send(read))
+      .catch(next);
+  });
 
-app.post('/api/schools', (req, res, next) => {
-  db.createSchool(req.body)
-    .then(school => res.send(school))
-    .catch(next);
-});
+  app.post(`/api/${table}`, (req, res, next) => {
+    creates[table](req.body)
+      .then(created => res.send(created))
+      .catch(next);
+  });
 
-app.post('/api/students', (req, res, next) => {
-  db.createStudent(req.body)
-    .then(student => res.send(student))
-    .catch(next);
-});
+  app.delete(`/api/${table}/:id`, (req, res, next) => {
+    deletes[table](req.params.id)
+      .then(() => res.sendStatus(204))
+      .catch(next);
+  });
 
-app.delete('/api/schools/:id', (req, res, next) => {
-  db.deleteSchool(req.params.id)
-    .then(() => res.sendStatus(204))
-    .catch(next);
-});
-
-app.delete('/api/students/:id', (req, res, next) => {
-  db.deleteStudent(req.params.id)
-    .then(() => res.sendStatus(204))
-    .catch(next);
-});
-
-app.put('/api/schools/:id', (req, res, next) => {
-  console.log(req.body);
-  db.updateSchool(req.body)
-    .then(school => res.send(school))
-    .catch(next);
-});
-
-app.put('/api/students/:id', (req, res, next) => {
-  db.updateStudent(req.body)
-    .then(student => res.send(student))
-    .catch(next);
+  app.put(`/api/${table}/:id`, (req, res, next) => {
+    updates[table](req.body)
+      .then(updated => res.send(updated))
+      .catch(next);
+  });
 });
 
 const port = process.env.PORT || 3000;
