@@ -80,13 +80,18 @@ const App = () => {
   const updateStudent = async(student) => {
     try {
       await axios.put(`/api/students/${student.id}`, student).data;
+      console.log('students :', students);
+      console.log('student! :', student);
       setStudents(students.map((stu) => {
         if (stu.id === student.id ) {
+          console.log('1')
           return student;
         } else {
+          console.log('2')
           return stu;
         }
       }));
+      console.log('students :', students);
     } catch (e) {
       setError(e);
     }

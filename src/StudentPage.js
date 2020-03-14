@@ -5,14 +5,14 @@ const StudentPage = ({ student = {}, deleteStudent, schools, updateStudent }) =>
   if (!student.id) {
     return <p> Loading... </p>;
   }
+
   const [name, setName] = useState(student.name);
-  const [schoolId, setSchoolId] = useState(undefined);
+  const [schoolId, setSchoolId] = useState(student.schoolId);
   const history = useHistory();
 
   const onSubmit = (ev) => {
     ev.preventDefault();
     updateStudent({name, schoolId, id: student.id});
-    setName('');
   };
 
   const destroy = () => {

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 const SchoolList = ({ schools, students }) => {
   const history = useHistory();
-  const unenrolledStudents = students.filter(student => student.schoolId === null);
+  const unenrolledStudents = students.filter(student => !student.schoolId);
   const [studentId, setStudentId] = useState('');
 
   const unenrollStudent = () => {
