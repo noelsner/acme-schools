@@ -21,7 +21,7 @@ const StudentPage = ({ student = {}, deleteStudent, schools, updateStudent }) =>
   };
 
   return (
-    <div className="border flex-1 mx-4">
+    <div className="flex-1 mx-4">
       <form className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
         <div className="mb-4">
           <label className="block text-gray-800 text-xl font-bold mb-2">Update Student</label>

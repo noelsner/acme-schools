@@ -92,7 +92,7 @@ const App = () => {
 
   return (
       <div>
-        <div className="border mb-4 px-4">
+        <div className="mb-4 px-4">
           <h1 className="text-4xl font-bold text-gray-900 text-center"> <Link to="/">Acme Schools</Link> </h1>
           <div className="text-center">
             <span className="text-lg mr-3"> {schools.length} schools </span>|<span className="text-lg ml-3"> {students.length} students </span>
@@ -100,7 +100,7 @@ const App = () => {
         </div>
         {/* <Switch className="p-4"> */}
           <Route path="/" exact>
-            <div className="border flex">
+            <div className="flex">
               <StudentsForm createStudent={createStudent} schools={schools} />
               <SchoolsForm createSchool={createSchool} />
             </div>
