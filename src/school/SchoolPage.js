@@ -25,7 +25,7 @@ const SchoolPage = ({ school = {}, deleteSchool, updateSchool, error, setError})
       <form className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
         <div className="mb-4">
           <label className="block text-gray-800 text-xl font-bold mb-2">Update School</label>
-          {error.length > 0 && <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" > {(error)} </div>}
+          {error.length > 0 && <div className="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" > {(error)} </div>}
           <input className="text-gray-800 shadow border rounded w-full py-2 px-3 focus:outline-none focus:shadow-outline" placeholder="School" value={name} onChange={ev => setName(ev.target.value)} />
         </div>
         <div>
