@@ -19,7 +19,7 @@
     "autoprefixer": "^9.7.4",
     "axios": "^0.19.2",
     "babel-loader": "^8.0.6",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.4",
     "postcss-cli": "^7.1.0",
     "postcss-loader": "^3.0.0",
     "react": "^16.13.0",
